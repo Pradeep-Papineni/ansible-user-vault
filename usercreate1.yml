@@ -1,0 +1,14 @@
+---
+- name: Create Users with Encrypted Passwords
+  hosts: all
+  become: yes
+  vars_files:
+    - secrets1.yaml
+  tasks:
+    - name: Create Users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        state: present
+      loop: "{{ users }}"
+
